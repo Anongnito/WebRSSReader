@@ -1,0 +1,66 @@
+/**
+ * Created by Ago Ahas on 06/04/2015.
+ */
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 15px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+h1 {
+    color: white;
+}
+
+#sideNav {
+    position: absolute;
+    left: 0;
+    z-index: 1;
+    height: 100%;
+    width: 100px;
+    background: black;
+
+}
+
+#topNav {
+    height: 45px;
+    top: 0;
+    position: absolute;
+}
+
+#topNav button {
+    left: 100px;
+    position: relative;
+}
+
+#contentContainer {
+    width: 100%;
+    height: 100%;
+    margin-left: 100px;
+}
+
+#content {
+    background: #efefef;
+    width: 100%;
+    height: 90%;
+    top: 45px;
+    position: relative;
+}
