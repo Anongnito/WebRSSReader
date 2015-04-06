@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <title>Web RSS Reader</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="../css/index.css">
     <script src="../js/main.js"></script>
 </head>
 <body>
-<nav id="topNav"><button onclick="rssFunctions.addRss()">Add Rss Feed</button></nav>
+<nav id="topNav">
+    <button id="addRssFeed" onclick="rssFunctions.addRss()">Add Rss Feed</button>
+    <button id="removeRssFeed" onclick="rssFunctions.removeRss()">Remove Rss Feed</button>
+</nav>
     <nav id="sideNav">
         <h1>Your Feeds</h1>
         <ul>

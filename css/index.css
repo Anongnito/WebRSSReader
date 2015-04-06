@@ -8,11 +8,25 @@ html, body {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    font-family: 'Open Sans', sans-serif;
 }
 
 ul {
     list-style-type: none;
-    padding-left: 15px;
+    padding: 0;
+    width: 90%;
+    margin: 0 auto;
+}
+
+ul li {
+    margin-bottom: 10px;
+    border: 1px solid white;
+    text-align: center;
+}
+
+ul li:hover {
+    border: 1px solid red;
+    cursor: pointer;
 }
 
 a {
@@ -28,6 +42,9 @@ iframe {
 
 h1 {
     color: white;
+    font-size: 19px;
+    border-bottom: 2px solid white;
+    margin-bottom: 45px;
 }
 
 #sideNav {
@@ -63,4 +80,19 @@ h1 {
     height: 90%;
     top: 45px;
     position: relative;
+}
+
+#addRssFeed {
+    height: 100%;
+    background: green;
+    border: 1px solid lightgreen;
+    color: white;
+    margin-left: 5px;
+}
+
+#removeRssFeed {
+    height: 100%;
+    background: #800700;
+    border: 1px solid #ee8680;
+    color: white;
 }
