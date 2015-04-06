@@ -44,7 +44,7 @@ h1 {
     color: white;
     font-size: 19px;
     border-bottom: 2px solid white;
-    margin-bottom: 45px;
+    margin-bottom: 5px;
 }
 
 #sideNav {
@@ -57,10 +57,19 @@ h1 {
 
 }
 
+#sideNav img {
+    width: 70px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
 #topNav {
     height: 45px;
     top: 0;
     position: absolute;
+    background: black;
+    width: 100%;
 }
 
 #topNav button {
@@ -75,9 +84,8 @@ h1 {
 }
 
 #content {
-    background: #efefef;
     width: 100%;
-    height: 90%;
+    height: 100%;
     top: 45px;
     position: relative;
 }
@@ -87,7 +95,6 @@ h1 {
     background: green;
     border: 1px solid lightgreen;
     color: white;
-    margin-left: 5px;
 }
 
 #removeRssFeed {
@@ -95,4 +102,28 @@ h1 {
     background: #800700;
     border: 1px solid #ee8680;
     color: white;
+}
+
+#showMenu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background: black;
+    display: none;
+}
+
+#showMenu img {
+    width: 45px;
+}
+
+#deleteList {
+    width: 70%;
+    height: 70%;
+    position: absolute;
+    left: 20%;
+    top: 20%;
+    display: none;
+    z-index: 50;
+    background: red;
 }
