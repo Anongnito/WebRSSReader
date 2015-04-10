@@ -11,7 +11,7 @@
 <body>
 <nav id="topNav">
     <button id="addRssFeed" onclick="rssFunctions.addRss()">Add Rss Feed</button>
-    <button id="removeRssFeed" onclick="rssFunctions.removeRss()">Remove Rss Feed</button>
+    <button id="removeRssFeed" onclick="rssFunctions.showRemoveRssArea()">Remove Rss Feed</button>
 </nav>
     <nav id="sideNav">
         <h1>Your Feeds</h1>
@@ -23,6 +23,6 @@
         <div id="content"></div>
     </div>
 <a id="showMenu" onclick="domManipulation.showMenu()"><img src="../img/hamburger.png"></a>
-<div id="deleteList"></div>
+<div id="deleteListContainer"><h1 style="color:black">Remove RSS page</h1><div id="deleteList"></div></div>
 </body>
 </html>

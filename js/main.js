@@ -16,7 +16,7 @@ var rssFunctions = {
             var url = rssFunctions.rssProto.URL = prompt("Please insert a RSS feed URL");
             var name = rssFunctions.rssProto.name = prompt("Please give a name for that RSS Feed");
 
-            if (url == "" || name == "") {
+            if (url == "" || name == "" || url == null || name == null) {
                 alert("You have either entered an empty value to URL or the Name of RSS Feed");
             } else {
                 rssFunctions.addRssToList(url, name);
@@ -34,24 +34,29 @@ var rssFunctions = {
         $("<iframe src='" + url + "'></iframe>").appendTo('#content');
     },
 
-    removeRss: function () {
-        $('#deleteList').css({'display':'block'});
-        rssFunctions.getRssList();
+    showRemoveRssArea: function () {
+        if($('#deleteListContainer').is(":visible") ){
+            $('#deleteListContainer').hide();
+            $('#deleteList').empty();
+        } else {
+            $('#deleteListContainer').show();
+            rssFunctions.getRssList();
+        }
     },
 
     getRssList: function () {
+        rssFunctions.rssList.array = [];
         $('#sideNav li a').each(function () {
             rssFunctions.rssList.array += $(this).attr('datatype');
         });
-        console.log(rssFunctions.rssList.array);
-        miscFunctions.calculateOddEven(rssFunctions.rssList.array,false);
+        miscFunctions.calculateOddEven(rssFunctions.rssList.array, false);
     }
 };
 
 var userHandling = {
     returningUser: function () {
         var readerList = cookieHandling.readCookie('readerList');
-        miscFunctions.calculateOddEven(readerList,true);
+        miscFunctions.calculateOddEven(readerList, true);
 
     }
 };
@@ -107,27 +112,24 @@ var domManipulation = {
 };
 
 var miscFunctions = {
-    calculateOddEven: function (array,called) {
-        console.log(array,called)
-        var odd = "";
-        var even = "";
+    calculateOddEven: function (array, called) {
+        var url = "";
+        var name = "";
         var arrays = array.split(",");
         for (var i = 0; i < arrays.length; i++) {
             if (i % 2 == 0) {
-                odd = arrays[i];
+                url = arrays[i];
             } else {
-                even = arrays[i];
+                name = arrays[i];
             }
-
-            if (odd.length > 0 && even.length > 0) {
-                if(called == true ) {
-                    rssFunctions.addRssToList(odd, even);
+            if (url.length > 0 && name.length > 0) {
+                if (called == true) {
+                    rssFunctions.addRssToList(url, name);
                 } else {
-                    console.log("in else")
-                    $("<h4>" + odd + " " + even +"</h4>").appendTo('#deleteList');
+                    $("<h4 class='itemForDeletion'>" + name + "</h4>").appendTo('#deleteList');
                 }
-                odd = "";
-                even = "";
+                url = "";
+                name = "";
             }
         }
     }
