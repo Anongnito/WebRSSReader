@@ -20,7 +20,7 @@ var rssFunctions = {
                 alert("You have either entered an empty value to URL or the Name of RSS Feed");
             } else {
                 rssFunctions.addRssToList(url, name);
-                cookieHandling.addCookie(url, name);
+                cookieHandling.addToArray(url, name);
             }
         }
     },
@@ -37,11 +37,21 @@ var rssFunctions = {
     showRemoveRssArea: function () {
         if($('#deleteListContainer').is(":visible") ){
             $('#deleteListContainer').hide();
-            $('#deleteList').empty();
+            $('#deleteList ul').empty();
         } else {
             $('#deleteListContainer').show();
             rssFunctions.getRssList();
+            miscFunctions.calculateOddEven(rssFunctions.rssList.array, false);
         }
+    },
+
+    removeRssPage: function(element) {
+        $('#sideNav li a').each(function() {
+            if($(this).attr('datatype') == $(element).attr('datatype')) {
+                $(element).parent().remove();
+                $(this).parent().remove();
+            }
+        });
     },
 
     getRssList: function () {
@@ -49,7 +59,15 @@ var rssFunctions = {
         $('#sideNav li a').each(function () {
             rssFunctions.rssList.array += $(this).attr('datatype');
         });
-        miscFunctions.calculateOddEven(rssFunctions.rssList.array, false);
+        return rssFunctions.rssList.array;
+    },
+    test: function() {
+        rssFunctions.getRssList();
+        cookieHandling.userInfoArray = rssFunctions.rssList.array;
+        cookieHandling.addCookie(false);
+        console.log(cookieHandling.userInfoArray + " userInfoArray");
+        console.log(rssFunctions.rssList.array + " rssList array");
+        console.log(cookieHandling.readCookie('readerList'));
     }
 };
 
@@ -63,8 +81,12 @@ var userHandling = {
 
 var cookieHandling = {
     userInfoArray: [],
-    addCookie: function (url, name) {
+    addToArray: function(url, name) {
         cookieHandling.userInfoArray.push(url, name);
+        console.log(cookieHandling.userInfoArray);
+    },
+    addCookie: function (param) {
+
         function createCookie(name, value, days) {
             if (days) {
                 var date = new Date();
@@ -76,10 +98,15 @@ var cookieHandling = {
             }
             document.cookie = name + "=" + value + expires + "; path=/";
         }
-
-        if (cookieHandling.readCookie('readerList')) {
-            var existingList = cookieHandling.readCookie('readerList');
-            createCookie("readerList", existingList + "," + cookieHandling.userInfoArray, 9999);
+        if(param == true) {
+            if (cookieHandling.readCookie('readerList')) {
+                var existingList = cookieHandling.readCookie('readerList');
+                if (existingList != cookieHandling.userInfoArray.toString()) {
+                    createCookie("readerList", existingList + "," + cookieHandling.userInfoArray, 9999);
+                }
+            } else {
+                createCookie("readerList", cookieHandling.userInfoArray, 9999);
+            }
         } else {
             createCookie("readerList", cookieHandling.userInfoArray, 9999);
         }
@@ -125,8 +152,10 @@ var miscFunctions = {
             if (url.length > 0 && name.length > 0) {
                 if (called == true) {
                     rssFunctions.addRssToList(url, name);
+                } else if(called == 'removalList'){
+
                 } else {
-                    $("<h4 class='itemForDeletion'>" + name + "</h4>").appendTo('#deleteList');
+                    $("<li style='text-align: left' class='itemForDeletion'><h4 >Name: " + name + " " + "URL: " + url + "</h4><a datatype='" + url + "," + ""+ name + "," +"' onclick='rssFunctions.removeRssPage($(this))' style='color:red;text-decoration: underline'>Remove</a></li>").appendTo('#deleteList ul');
                 }
                 url = "";
                 name = "";
