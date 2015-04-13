@@ -13,17 +13,24 @@
     <button id="addRssFeed" onclick="rssFunctions.addRss()">Add Rss Feed</button>
     <button id="removeRssFeed" onclick="rssFunctions.showRemoveRssArea()">Remove Rss Feed</button>
 </nav>
-    <nav id="sideNav">
-        <h1>Your Feeds</h1>
-        <a onclick="domManipulation.hideMenu()"><img src="../img/hamburger.png"></a>
-        <ul>
-        </ul>
-        <button onclick="cookieHandling.addCookie(true)">Save List</button>
-    </nav>
-    <div id="contentContainer">
-        <div id="content"></div>
-    </div>
+<nav id="sideNav">
+    <h1>Your Feeds</h1>
+    <a onclick="domManipulation.hideMenu()"><img src="../img/hamburger.png"></a>
+    <ul>
+    </ul>
+    <div id="saveAddedList"><button onclick="rssFunctions.saveAddedList()">Save List</button></div>
+</nav>
+<div id="contentContainer">
+    <div id="content"></div>
+</div>
 <a id="showMenu" onclick="domManipulation.showMenu()"><img src="../img/hamburger.png"></a>
-<div id="deleteListContainer"><h1 style="color:black">Remove RSS page</h1><div id="deleteList"><ul></ul></div><button onclick="rssFunctions.test();">Save</button></div>
+
+<div id="deleteListContainer"><h1>Remove RSS page</h1>
+
+    <div id="deleteList">
+        <ul></ul>
+    </div>
+    <div id="saveDeletedList"><button onclick="rssFunctions.saveDeletedList();">Save</button></div>
+</div>
 </body>
 </html>

@@ -129,7 +129,15 @@ h1 {
     border: 1px solid black;
 }
 
+#deleteListContainer h1{
+    color: black;
+}
+
 .itemForDeletion {
     margin: 5px;
     font-size: 15px;
+}
+
+#saveAddedList {
+    text-align: center;
 }

@@ -1,15 +1,16 @@
 /**
  * Created by Ago Ahas on 06/04/2015.
  */
-$(document).ready(function () {
+$(document).ready(function() {
     if (cookieHandling.readCookie('readerList')) {
         userHandling.returningUser();
     }
 });
+
 var rssFunctions = {
     rssProto: {},
     rssList: {array: []},
-    addRss: function () {
+    addRss: function() {
 
         askRss();
         function askRss() {
@@ -25,54 +26,52 @@ var rssFunctions = {
         }
     },
 
-    addRssToList: function (val1, val2) {
+    addRssToList: function(val1, val2) {
         val1 = '"' + val1 + '"';
         $("<li><a datatype='" + val1 + "," + val2 + "," + "' onclick='rssFunctions.insertRssToPage(" + val1 + ")'> " + val2 + "</a></li>").appendTo('#sideNav ul');
     },
-    insertRssToPage: function (url) {
+    insertRssToPage: function(url) {
         $('iframe').remove();
         $("<iframe src='" + url + "'></iframe>").appendTo('#content');
     },
-
-    showRemoveRssArea: function () {
-        if($('#deleteListContainer').is(":visible") ){
+    showRemoveRssArea: function() {
+        if ($('#deleteListContainer').is(":visible")) {
             $('#deleteListContainer').hide();
-            $('#deleteList ul').empty();
+            $('#deleteList').find('ul').empty();
         } else {
             $('#deleteListContainer').show();
             rssFunctions.getRssList();
             miscFunctions.calculateOddEven(rssFunctions.rssList.array, false);
         }
     },
-
+    //shows that it is not used, but added as an onclick with jQuery.
     removeRssPage: function(element) {
-        $('#sideNav li a').each(function() {
-            if($(this).attr('datatype') == $(element).attr('datatype')) {
+        $('#sideNav').find('li a').each(function() {
+            if ($(this).attr('datatype') == $(element).attr('datatype')) {
                 $(element).parent().remove();
                 $(this).parent().remove();
             }
         });
     },
-
-    getRssList: function () {
+    getRssList: function() {
         rssFunctions.rssList.array = [];
-        $('#sideNav li a').each(function () {
+        $('#sideNav').find('li a').each(function() {
             rssFunctions.rssList.array += $(this).attr('datatype');
         });
         return rssFunctions.rssList.array;
     },
-    test: function() {
+    saveDeletedList: function() {
         rssFunctions.getRssList();
         cookieHandling.userInfoArray = rssFunctions.rssList.array;
         cookieHandling.addCookie(false);
-        console.log(cookieHandling.userInfoArray + " userInfoArray");
-        console.log(rssFunctions.rssList.array + " rssList array");
-        console.log(cookieHandling.readCookie('readerList'));
+    },
+    saveAddedList: function() {
+        cookieHandling.addCookie(true);
     }
 };
 
 var userHandling = {
-    returningUser: function () {
+    returningUser: function() {
         var readerList = cookieHandling.readCookie('readerList');
         miscFunctions.calculateOddEven(readerList, true);
 
@@ -85,7 +84,7 @@ var cookieHandling = {
         cookieHandling.userInfoArray.push(url, name);
         console.log(cookieHandling.userInfoArray);
     },
-    addCookie: function (param) {
+    addCookie: function(param) {
 
         function createCookie(name, value, days) {
             if (days) {
@@ -98,7 +97,8 @@ var cookieHandling = {
             }
             document.cookie = name + "=" + value + expires + "; path=/";
         }
-        if(param == true) {
+
+        if (param == true) {
             if (cookieHandling.readCookie('readerList')) {
                 var existingList = cookieHandling.readCookie('readerList');
                 if (existingList != cookieHandling.userInfoArray.toString()) {
@@ -112,7 +112,7 @@ var cookieHandling = {
         }
     },
 
-    readCookie: function (name) {
+    readCookie: function(name) {
         var nameEquals = name + "=";
         var split = document.cookie.split(';');
         for (var i = 0; i < split.length; i++) {
@@ -125,13 +125,13 @@ var cookieHandling = {
 };
 
 var domManipulation = {
-    hideMenu: function () {
+    hideMenu: function() {
         $('#sideNav').animate({'left': '-100px'});
         $('#topNav').animate({'top': '-45px'});
         $('#showMenu').css({'display': 'block'});
     },
 
-    showMenu: function () {
+    showMenu: function() {
         $('#showMenu').css({'display': 'none'});
         $('#sideNav').animate({'left': '0px'});
         $('#topNav').animate({'top': '0px'});
@@ -139,7 +139,7 @@ var domManipulation = {
 };
 
 var miscFunctions = {
-    calculateOddEven: function (array, called) {
+    calculateOddEven: function(array, called) {
         var url = "";
         var name = "";
         var arrays = array.split(",");
@@ -152,10 +152,8 @@ var miscFunctions = {
             if (url.length > 0 && name.length > 0) {
                 if (called == true) {
                     rssFunctions.addRssToList(url, name);
-                } else if(called == 'removalList'){
-
                 } else {
-                    $("<li style='text-align: left' class='itemForDeletion'><h4 >Name: " + name + " " + "URL: " + url + "</h4><a datatype='" + url + "," + ""+ name + "," +"' onclick='rssFunctions.removeRssPage($(this))' style='color:red;text-decoration: underline'>Remove</a></li>").appendTo('#deleteList ul');
+                    $("<li style='text-align: left' class='itemForDeletion'><h4 >Name: " + name + " " + "URL: " + url + "</h4><a datatype='" + url + "," + "" + name + "," + "' onclick='rssFunctions.removeRssPage($(this))' style='color:red;text-decoration: underline'>Remove</a></li>").appendTo('#deleteList ul');
                 }
                 url = "";
                 name = "";
